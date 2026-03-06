@@ -1,24 +1,30 @@
-﻿namespace WorkoutTrackerApp
+﻿using WorkoutTracker.Data;
+using WorkoutTracker.Data.Repositories;
+using WorkoutTrackerApp.ViewModels;
+
+namespace WorkoutTrackerApp
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
 
-        public MainPage()
+        private readonly WorkoutListViewModel _viewModel;
+
+        public MainPage(WorkoutListViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
+
+            BindingContext = _viewModel;
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            await _viewModel.LoadWorkoutsAsync();
         }
+
+
     }
 }
