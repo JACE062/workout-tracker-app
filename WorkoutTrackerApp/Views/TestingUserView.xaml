@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:WorkoutTrackerApp.ViewModels"
+             xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
+             x:Class="WorkoutTrackerApp.Views.TestingUserView"
+             x:DataType="viewmodels:TestingUserViewModel"
+             Title="TestingUserView">
+    <VerticalStackLayout>
+        <Label 
+            Text="This is the testing User Creation View"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button 
+            Text="Create User"
+            Command="{Binding CreateUserCommand}"
+            HorizontalOptions="Fill" />
+        <Entry 
+            x:Name="UserIdEntry"
+            Placeholder="1"  
+            IsPassword="False"
+            Keyboard="Numeric" />
+        <Button 
+            Text="Load User"
+            Clicked="OnLoadUserClicked"
+            HorizontalOptions="Fill" />
+        
+    </VerticalStackLayout>
+</ContentPage>

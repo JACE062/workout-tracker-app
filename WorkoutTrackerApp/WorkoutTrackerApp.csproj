@@ -73,10 +73,31 @@
 	  <MauiXaml Update="AboutPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateEditWorkoutView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SessionsListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SessionView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TestingUserView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\WorkoutTracker.Data\WorkoutTracker.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\CreateEditWorkoutView.xaml.cs">
+	    <DependentUpon>CreateEditWorkoutView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SessionsListView.xaml.cs">
+	    <DependentUpon>SessionsListView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

@@ -38,9 +38,11 @@ namespace WorkoutTracker.Data.Repositories
 
 
         // Getall methods
-        public async Task<List<Session>> GetAllSessionsAsync()
+        public async Task<List<Session>> GetAllSessionsForUserAsync(int userId)
         {
-            return await _dbContext.Sessions.ToListAsync();
+            return await _dbContext.Sessions
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
         }
 
         public async Task<List<User>> GetAllUsersAsync()
@@ -48,16 +50,18 @@ namespace WorkoutTracker.Data.Repositories
             return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task<List<Workout>> GetAllWorkoutsAsync()
+        public async Task<List<Workout>> GetAllWorkoutsForUserAsync(int userId)
         {
-            return await _dbContext.Workouts.ToListAsync();
+            return await _dbContext.Workouts
+                .Where(w => w.Session.UserId == userId)
+                .ToListAsync();
         }
 
 
         // GetById methods
         public async Task<Session?> GetSessionByIdAsync(int id)
         {
-            return await _dbContext.Sessions.FindAsync(id);
+            return await _dbContext.Sessions.Include(s => s.Workouts).FirstOrDefaultAsync(s => s.SessionId == id);
         }
 
         public async Task<User?> GetUserByIdAsync(int id)

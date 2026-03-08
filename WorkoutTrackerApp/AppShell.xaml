@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:WorkoutTrackerApp"
+    xmlns:views="clr-namespace:WorkoutTrackerApp.Views"
     Title="WorkoutTrackerApp">
 
     <TabBar>
@@ -16,6 +17,10 @@
         <ShellContent
             Title="About"
             ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent 
+            Title="User"
+            ContentTemplate="{DataTemplate views:TestingUserView}"
+            />
     </TabBar>
    
 

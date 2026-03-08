@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:WorkoutTrackerApp.ViewModels"
+             xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
+             x:Class="WorkoutTrackerApp.Views.CreateEditWorkoutView"
+             x:DataType="viewmodels:CreateEditWorkoutViewModel"
+             Title="CreateEditWorkoutView">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding CurrentWorkout.Title}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.Description}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.StartTime}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.EndTime}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.Sets}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.Reps}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding CurrentWorkout.Distance}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button 
+            Text="Back"
+            Command="{Binding SaveReturnCommand}"
+            HorizontalOptions="Fill" />
+        <Button 
+            Text="Back"
+            Command="{Binding DiscardReturnCommand}"
+            HorizontalOptions="Fill" />
+    </VerticalStackLayout>
+</ContentPage>

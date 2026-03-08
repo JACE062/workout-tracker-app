@@ -8,22 +8,23 @@ namespace WorkoutTrackerApp
     {
         int count = 0;
 
-        private readonly WorkoutListViewModel _viewModel;
-
-        public MainPage(WorkoutListViewModel viewModel)
+        public MainPage()
         {
             InitializeComponent();
-            _viewModel = viewModel;
-
-            BindingContext = _viewModel;
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
 
-            await _viewModel.LoadWorkoutsAsync();
-        }
+        //private void OnCounterClicked(object? sender, EventArgs e)
+        //{
+        //    count++;
+
+        //    if (count == 1)
+        //        CounterBtn.Text = $"Clicked {count} time";
+        //    else
+        //        CounterBtn.Text = $"Clicked {count} times";
+
+        //    SemanticScreenReader.Announce(CounterBtn.Text);
+        //}
 
 
     }

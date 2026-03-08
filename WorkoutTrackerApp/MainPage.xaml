@@ -1,44 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:WorkoutTrackerApp.ViewModels"
-             xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
-             x:Class="WorkoutTrackerApp.MainPage"
-             x:DataType="viewmodels:WorkoutListViewModel"
-             Title="My Workouts">
+             x:Class="WorkoutTrackerApp.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout>
-            <Grid RowDefinitions="Auto, *">
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
 
-                <Label Grid.Row="0" 
-               Text="Workout History" 
-               FontSize="24" 
-               FontAttributes="Bold" 
-               Margin="15" />
+            <Label
+                Text="Hello, everybody! Welcome to our WorkoutTracker App"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
 
-                <CollectionView Grid.Row="1" 
-                        ItemsSource="{Binding Workouts}"
-                        Margin="15,0,15,0">
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Workout">
-                            <Frame Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
-                                <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-
-                    <CollectionView.EmptyView>
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="No workouts found." FontSize="18" HorizontalOptions="Center" />
-                            <Label Text="Time to hit the gym!" TextColor="Gray" HorizontalOptions="Center" />
-                        </VerticalStackLayout>
-                    </CollectionView.EmptyView>
-
-                </CollectionView>
-            </Grid>
-
+            
         </VerticalStackLayout>
     </ScrollView>
 

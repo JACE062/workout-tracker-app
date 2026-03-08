@@ -13,7 +13,8 @@ namespace WorkoutTracker.Data
         public string Username { get; set; } 
         public string Password { get; set; }
 
-        public List<Session> Sessions { get; set; }
+
+        public List<Session> Sessions { get; set; } = new();
 
     }
 }
