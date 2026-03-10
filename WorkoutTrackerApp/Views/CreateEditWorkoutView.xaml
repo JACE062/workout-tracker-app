@@ -7,41 +7,39 @@
              x:DataType="viewmodels:CreateEditWorkoutViewModel"
              Title="CreateEditWorkoutView">
     <VerticalStackLayout>
-        <Label 
-            Text="{Binding CurrentWorkout.Title}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.Description}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.StartTime}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.EndTime}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.Sets}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.Reps}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding CurrentWorkout.Distance}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button 
-            Text="Back"
-            Command="{Binding SaveReturnCommand}"
-            HorizontalOptions="Fill" />
-        <Button 
-            Text="Back"
-            Command="{Binding DiscardReturnCommand}"
-            HorizontalOptions="Fill" />
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" RowSpacing="15" ColumnSpacing="10">
+            <Label Grid.Row="0" Grid.Column="0" Text="Title: " FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding CurrentWorkout.Title}" FontSize="18" Keyboard="Text" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Text="Description: " FontAttributes="Bold" VerticalOptions="Center"/>
+            <Editor Grid.Row="1" Grid.Column="1" Text="{Binding CurrentWorkout.Description}" AutoSize="TextChanges" Keyboard="Text" />
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Start Time: " FontAttributes="Bold" VerticalOptions="Center"/>
+            <TimePicker Grid.Row="2" Grid.Column="1" Time="{Binding StartTimeSpan}" Format="h:mm tt" />
+            
+            <Label Grid.Row="3" Grid.Column="0" Text="End Time: " FontAttributes="Bold" VerticalOptions="Center"/>
+            <TimePicker Grid.Row="3" Grid.Column="1" Time="{Binding EndTimeSpan}" Format="h:mm tt"/>
+            
+            <Label Grid.Row="4" Grid.Column="0" Text="Sets: " FontAttributes="Bold"  VerticalOptions="Center"/>
+            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding SetsText}" Keyboard="Numeric" />
+            
+            <Label Grid.Row="5" Grid.Column="0" Text="Reps: " FontAttributes="Bold"  VerticalOptions="Center"/>
+            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding RepsText}"  Keyboard="Numeric" />
+            
+            <Label Grid.Row="6" Grid.Column="0" Text="Distance: " FontAttributes="Bold"  VerticalOptions="Center"/>
+            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding CurrentWorkout.Distance}"  Keyboard="Text"/>
+
+        </Grid>
+
+        <HorizontalStackLayout>
+            <Button 
+                Text="Save Changes"
+                Command="{Binding SaveReturnCommand}" 
+                WidthRequest="200" />
+            <Button 
+                Text="Discard Changes" 
+                Command="{Binding DiscardReturnCommand}" 
+                WidthRequest="200" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

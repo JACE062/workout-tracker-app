@@ -11,7 +11,7 @@ namespace WorkoutTracker.Data
     {
         public int SessionId { get; set; }
         public string Title { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateOnly Date { get; set; }
         
         public int UserId { get; set; }
 

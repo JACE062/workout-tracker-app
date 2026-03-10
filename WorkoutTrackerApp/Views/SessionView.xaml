@@ -7,24 +7,34 @@
              x:DataType="viewmodels:SessionViewModel"
              Title="Session View">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout >
             <Button 
                 Text="Back"
-                Command="{Binding ReturnCommand}"
-                HorizontalOptions="Fill" />
+                Command="{Binding ReturnCommand}" 
+                WidthRequest="80"
+                Margin="10, 10, 0, 0"
+                HorizontalOptions="Start" />
             <Entry 
                 x:Name="TitleEntry"
                 Placeholder="Enter the session title" 
                 Text="{Binding Title}" 
                 IsPassword="False"
-                Keyboard="Text" />
-            <Label Text="{Binding CurrentSession.Timestamp}"/>
+                Keyboard="Text" 
+                Margin="15, 10"
+                WidthRequest="400"
+                HorizontalOptions="Start" />
+            <HorizontalStackLayout>
+                <Label Text="Session Date:" Margin="15, 10" VerticalOptions="Center"/>
+                <DatePicker Date="{Binding SessionDateUI, Mode=TwoWay}" Margin="0, 10, 10, 10"/>
+            </HorizontalStackLayout>
+            
             <HorizontalStackLayout>
                 <Button
                     x:Name="CreateWorkoutBtn"
                     Text="Create New Workout"
                     Command="{Binding CreateWorkoutCommand}"
-                    HorizontalOptions="Fill" />
+                    HorizontalOptions="Fill" 
+                    Margin="15, 0"/>
             </HorizontalStackLayout>
             <Grid RowDefinitions="Auto, *">
 
@@ -35,21 +45,54 @@
                     Margin="15" />
 
                 <CollectionView Grid.Row="1" 
-                    ItemsSource="{Binding CurrentSession.Workouts}"
-                    Margin="15,0,15,0">
+                    ItemsSource="{Binding DisplayedWorkouts}"
+                    x:Name="WorkoutsCollection"
+                    Margin="15,0,15,10">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Workout">
-                            <Frame Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
-                                <Frame.GestureRecognizers>
+                            <SwipeView x:Name="RowSwipeView">
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete" 
+                                            BackgroundColor="Red"
+                                            Command="{Binding BindingContext.DeleteWorkoutCommand, Source={x:Reference WorkoutsCollection}}"
+                                            CommandParameter="{Binding BindingContext, Source={x:Reference RowSwipeView}}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
 
-                                    <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SessionViewModel}}, Path=WorkoutTappedCommand}"
-                                        CommandParameter="{Binding .}" />
+                                <Frame x:Name="WorkoutRowFrame" Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
+                                    <FlyoutBase.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Delete Workout"
+                                                Command="{Binding BindingContext.DeleteWorkoutCommand, Source={x:Reference WorkoutsCollection}}"
+                                                CommandParameter="{Binding BindingContext, Source={x:Reference WorkoutRowFrame}}" />
+                                        </MenuFlyout>
+                                    </FlyoutBase.ContextFlyout>
+                                    <Frame.GestureRecognizers>
 
-                                </Frame.GestureRecognizers>
-                                <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
-                            </Frame>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SessionViewModel}}, Path=WorkoutTappedCommand}"
+                                            CommandParameter="{Binding .}" />
+
+                                    </Frame.GestureRecognizers>
+                                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" RowSpacing="5" ColumnSpacing="10">
+                                        <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Title}" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,5"/>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Descripition: " FontAttributes="Bold"/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}"/>
+                                        <Label Grid.Row="2" Grid.Column="0" Text="Start Time: " FontAttributes="Bold"/>
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding StartTime, StringFormat='{0:h:mm tt}'}"/>
+                                        <Label Grid.Row="3" Grid.Column="0" Text="End Time: " FontAttributes="Bold"/>
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding EndTime, StringFormat='{0:h:mm tt}'}" />
+                                        <Label Grid.Row="4" Grid.Column="0" Text="Sets: " FontAttributes="Bold" IsVisible="{Binding IsRepBased}"/>
+                                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Sets}" IsVisible="{Binding IsRepBased}"/>
+                                        <Label Grid.Row="5" Grid.Column="0" Text="Reps: " FontAttributes="Bold" IsVisible="{Binding IsRepBased}"/>
+                                        <Label Grid.Row="5" Grid.Column="1" Text="{Binding Reps}" IsVisible="{Binding IsRepBased}"/>
+                                        <Label Grid.Row="6" Grid.Column="0" Text="Distance: " FontAttributes="Bold" IsVisible="{Binding IsDistanceBased}"/>
+                                        <Label Grid.Row="6" Grid.Column="1" Text="{Binding Distance}" IsVisible="{Binding IsDistanceBased}"/>
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
 

@@ -11,7 +11,7 @@ using WorkoutTracker.Data;
 namespace WorkoutTracker.Data.Migrations
 {
     [DbContext(typeof(WorkoutDbContext))]
-    [Migration("20260303234749_InitialCreate")]
+    [Migration("20260310165302_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace WorkoutTracker.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -76,8 +76,9 @@ namespace WorkoutTracker.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Distance")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Distance")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");

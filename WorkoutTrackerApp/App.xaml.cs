@@ -1,4 +1,5 @@
-﻿using WorkoutTracker.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WorkoutTracker.Data;
 
 namespace WorkoutTrackerApp
 {
@@ -7,7 +8,7 @@ namespace WorkoutTrackerApp
         public App(WorkoutDbContext dbContext)
         {
             InitializeComponent();
-            dbContext.Database.EnsureCreated();
+            dbContext.Database.Migrate();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

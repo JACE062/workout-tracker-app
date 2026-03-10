@@ -25,21 +25,40 @@
 
             <CollectionView Grid.Row="1" 
                 ItemsSource="{Binding UserSessions}"
+                x:Name="SessionsCollection"
                 Margin="15,0,15,0">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Session">
-                        <Frame Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
-                            <Frame.GestureRecognizers>
+                        <SwipeView x:Name="RowSwipeView">
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete" 
+                                   BackgroundColor="Red"
+                                   Command="{Binding BindingContext.DeleteSessionCommand, Source={x:Reference SessionsCollection}}"
+                                   CommandParameter="{Binding BindingContext, Source={x:Reference RowSwipeView}}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
 
-                                <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SessionsListViewModel}}, Path=SessionTappedCommand}"
-                                    CommandParameter="{Binding .}" />
+                            <Frame x:Name="SessionRowFrame" Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
+                                <FlyoutBase.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Delete Session"
+                                            Command="{Binding BindingContext.DeleteSessionCommand, Source={x:Reference SessionsCollection}}"
+                                            CommandParameter="{Binding BindingContext, Source={x:Reference SessionRowFrame}}" />
+                                    </MenuFlyout>
+                                </FlyoutBase.ContextFlyout>
+                                <Frame.GestureRecognizers>
 
-                            </Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:SessionsListViewModel}}, Path=SessionTappedCommand}"
+                                        CommandParameter="{Binding .}" />
 
-                            <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
-                        </Frame>
+                                </Frame.GestureRecognizers>
+                                
+                                <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
+                            </Frame>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

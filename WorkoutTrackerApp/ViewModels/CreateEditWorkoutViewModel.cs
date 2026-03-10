@@ -16,8 +16,11 @@ namespace WorkoutTrackerApp.ViewModels
     {
         private readonly IWorkoutRepository _repository;
 
+        
         private int _workoutId;
+        private Workout _originalWorkout;
         private Workout _currentWorkout;
+        private Session _currentSession;
 
         public ICommand SaveReturnCommand { get; }
         public ICommand DiscardReturnCommand { get; }
@@ -50,10 +53,138 @@ namespace WorkoutTrackerApp.ViewModels
             }
         }
 
+        public Session CurrentSession
+        {
+            get => _currentSession;
+            set
+            {
+                _currentSession = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TimeSpan StartTimeSpan
+        {
+            get
+            {
+                if (CurrentWorkout == null) return DateTime.Now.TimeOfDay;
+                return CurrentWorkout.StartTime.TimeOfDay;
+            }
+            set
+            {
+                if (CurrentWorkout == null || CurrentSession == null) return;
+                var sessionDate = CurrentSession.Date;
+                CurrentWorkout.StartTime = sessionDate.ToDateTime(TimeOnly.FromTimeSpan(value));
+
+                AdjustForEndTimeMidnight();
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(EndTimeSpan));
+            }
+        }
+
+        public TimeSpan EndTimeSpan
+        {
+            get
+            {
+                if (CurrentWorkout == null) return DateTime.Now.AddHours(1).TimeOfDay;
+                return CurrentWorkout.EndTime.TimeOfDay;
+            }
+            set
+            {
+                if (CurrentWorkout == null || CurrentSession == null) return;
+                var sessionDate = CurrentSession.Date;
+                CurrentWorkout.EndTime = sessionDate.ToDateTime(TimeOnly.FromTimeSpan(value));
+
+                AdjustForEndTimeMidnight();
+
+                OnPropertyChanged();
+            }
+        }
+
+        public string SetsText
+        {
+            get
+            {
+                if (CurrentWorkout == null) return "0";
+                return CurrentWorkout.Sets.ToString();
+            }
+            set
+            {
+                if (CurrentWorkout == null) return;
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    CurrentWorkout.Sets = 0;
+                }
+                else if (int.TryParse(value, out int parsedSets))
+                {
+                    CurrentWorkout.Sets = parsedSets;
+                }
+
+                OnPropertyChanged();
+            }
+        }
+
+        public string RepsText
+        {
+            get
+            {
+                if (CurrentWorkout == null) return "0";
+                return CurrentWorkout.Reps.ToString();
+            }
+            set
+            {
+                if (CurrentWorkout == null) return;
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    CurrentWorkout.Reps = 0;
+                }
+                else if (int.TryParse(value, out int parsedReps))
+                {
+                    CurrentWorkout.Reps = parsedReps;
+                }
+
+                OnPropertyChanged();
+            }
+        }
+
+        private void AdjustForEndTimeMidnight()
+        {
+            var startTimeOfDay = CurrentWorkout.StartTime.TimeOfDay;
+            var endTimeOfDay = CurrentWorkout.EndTime.TimeOfDay;
+
+            if (endTimeOfDay < startTimeOfDay)
+            {
+                CurrentWorkout.EndTime = CurrentSession.Date.ToDateTime(TimeOnly.FromTimeSpan(endTimeOfDay)).AddDays(1);
+            }
+        }
+
         private async void LoadWorkoutAsync(int id)
         {
-            
-            CurrentWorkout = await _repository.GetWorkoutByIdAsync(id);
+            _originalWorkout = await _repository.GetWorkoutByIdAsync(id);
+
+            CurrentSession = await _repository.GetSessionByIdAsync(_originalWorkout.SessionId);
+
+            CurrentWorkout = new Workout
+            {
+                WorkoutId = _originalWorkout.WorkoutId,
+                SessionId = _originalWorkout.SessionId,
+                Title = _originalWorkout.Title,
+                Description = _originalWorkout.Description,
+                StartTime = _originalWorkout.StartTime,
+                EndTime = _originalWorkout.EndTime,
+                Sets = _originalWorkout.Sets,
+                Reps = _originalWorkout.Reps,
+                Distance = _originalWorkout.Distance
+            };
+
+            OnPropertyChanged(nameof(CurrentWorkout));
+            OnPropertyChanged(nameof(StartTimeSpan));
+            OnPropertyChanged(nameof(EndTimeSpan));
+            OnPropertyChanged(nameof(SetsText));
+            OnPropertyChanged(nameof(RepsText));
         }
 
         public async Task SaveAndReturn()
@@ -69,15 +200,24 @@ namespace WorkoutTrackerApp.ViewModels
 
         private async Task SaveCurrentWorkout()
         {
-            if (CurrentWorkout.Title is null)
-            {
+            if (string.IsNullOrWhiteSpace(CurrentWorkout.Title))
                 CurrentWorkout.Title = "Untitled Workout";
-            } else if (CurrentWorkout.Description is null)
-            {
+
+            if (string.IsNullOrWhiteSpace(CurrentWorkout.Description))
                 CurrentWorkout.Description = "Empty Description";
-            }
             
-            await _repository.UpdateWorkoutAsync(CurrentWorkout);
+            if (string.IsNullOrWhiteSpace(CurrentWorkout.Distance))
+                CurrentWorkout.Distance = "";
+
+            _originalWorkout.Title = CurrentWorkout.Title;
+            _originalWorkout.Description = CurrentWorkout.Description;
+            _originalWorkout.StartTime = CurrentWorkout.StartTime;
+            _originalWorkout.EndTime = CurrentWorkout.EndTime;
+            _originalWorkout.Sets = CurrentWorkout.Sets;
+            _originalWorkout.Reps = CurrentWorkout.Reps;
+            _originalWorkout.Distance = CurrentWorkout.Distance;
+
+            await _repository.UpdateWorkoutAsync(_originalWorkout);
         }
     }
 }

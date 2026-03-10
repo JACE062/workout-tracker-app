@@ -10,7 +10,7 @@ using WorkoutTracker.Data;
 namespace WorkoutTracker.Data.Migrations
 {
     [DbContext(typeof(WorkoutDbContext))]
-    partial class WorkoutAppContextModelSnapshot : ModelSnapshot
+    partial class WorkoutDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace WorkoutTracker.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
@@ -73,8 +73,9 @@ namespace WorkoutTracker.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Distance")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Distance")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");

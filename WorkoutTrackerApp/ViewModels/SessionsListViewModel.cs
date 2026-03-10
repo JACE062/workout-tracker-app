@@ -21,6 +21,7 @@ namespace WorkoutTrackerApp.ViewModels
         public ObservableCollection<Session> UserSessions { get; set; } = new();
 
         public ICommand SessionTappedCommand { get; }
+        public ICommand DeleteSessionCommand { get; }
         public ICommand CreateSessionCommand { get; }
 
         public SessionsListViewModel(IWorkoutRepository repository)
@@ -28,7 +29,9 @@ namespace WorkoutTrackerApp.ViewModels
             _repository = repository;
 
             SessionTappedCommand = new Command<Session>(async (selectedSession) => await OnSessionTapped(selectedSession));
+            DeleteSessionCommand = new Command<Session>(async (sessionToDelete) => await DeleteSession(sessionToDelete));
             CreateSessionCommand = new Command(async () => await CreateNewSession());
+
         }
 
         public int UserId
@@ -65,7 +68,7 @@ namespace WorkoutTrackerApp.ViewModels
         {
             Session newSession = new Session();
             newSession.Title = "New Session";
-            newSession.Timestamp = DateTime.Now;
+            newSession.Date = DateOnly.FromDateTime(DateTime.Now);
             newSession.UserId = _userId;
 
             await _repository.AddSessionAsync(newSession);
@@ -73,6 +76,22 @@ namespace WorkoutTrackerApp.ViewModels
             UserSessions.Add(newSession);
 
             await Shell.Current.GoToAsync($"{nameof(SessionView)}?sessionId={newSession.SessionId}");
+        }
+
+        private async Task DeleteSession(Session sessionToDelete)
+        {
+            if (sessionToDelete == null) return;
+
+            bool isCofirmed = await Shell.Current.DisplayAlert(
+                "Delete Session",
+                $"Are you sure you want to delete '{sessionToDelete.Title}'? All associated workouts will be permanently lost.",
+                "Yes, Delete",
+                "Cancel");
+
+            if (!isCofirmed) return;
+
+            UserSessions.Remove(sessionToDelete);
+            await _repository.DeleteSessionAsync(sessionToDelete);
         }
     }
 }

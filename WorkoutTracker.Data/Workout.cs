@@ -17,7 +17,10 @@ namespace WorkoutTracker.Data
         public DateTime EndTime { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
-        public int Distance {  get; set; }
+        public string Distance {  get; set; }
+
+        public bool IsRepBased => Sets > 0;
+        public bool IsDistanceBased => Distance != "";
 
         public int SessionId { get; set; }
 

@@ -24,6 +24,7 @@ namespace WorkoutTrackerApp
             
             builder.Services.AddDbContext<WorkoutDbContext>(options =>
                 options.UseSqlite($"Filename={dbPath}"));
+            System.Diagnostics.Debug.WriteLine($"=== DATABASE PATH: {FileSystem.AppDataDirectory} ===");
             builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
             builder.Services.AddSingleton<App>();
             builder.Services.AddTransient<MainPage>();

@@ -19,9 +19,11 @@ namespace WorkoutTrackerApp.ViewModels
         private int _sessionId; 
         private Session _currentSession;
         private String _title;
+        public ObservableCollection<Workout> DisplayedWorkouts { get; set; } = new();
 
         public ICommand WorkoutTappedCommand { get; }
         public ICommand CreateWorkoutCommand { get; }
+        public ICommand DeleteWorkoutCommand { get; }
         public ICommand ReturnCommand { get; }
  
         public SessionViewModel(IWorkoutRepository repository)
@@ -30,6 +32,7 @@ namespace WorkoutTrackerApp.ViewModels
 
             WorkoutTappedCommand = new Command<Workout>(async (selectedWorkout) => await OnWorkoutTapped(selectedWorkout));
             CreateWorkoutCommand = new Command(async () => await CreateNewWorkout());
+            DeleteWorkoutCommand = new Command<Workout>(async (workoutToDelete) => await DeleteWorkout(workoutToDelete));
             ReturnCommand = new Command(async () => await ReturnToSessionList());
         }
 
@@ -66,10 +69,36 @@ namespace WorkoutTrackerApp.ViewModels
             }
         }
 
+        public DateTime SessionDateUI
+        {
+            get  
+            {
+                if (CurrentSession == null) return DateTime.Now;
+
+                return CurrentSession.Date.ToDateTime(TimeOnly.MinValue); 
+            }
+            set
+            {
+                CurrentSession.Date = DateOnly.FromDateTime(value);
+                OnPropertyChanged();
+            }
+        }
+
         private async void LoadSessionAsync(int id)
         {
             CurrentSession = await _repository.GetSessionByIdAsync(id);
             Title = CurrentSession.Title;
+            
+
+            DisplayedWorkouts.Clear();
+            if (CurrentSession?.Workouts != null)
+            {
+                foreach (Workout workout in CurrentSession.Workouts)
+                {
+                    DisplayedWorkouts.Add(workout);
+                }
+            }
+            OnPropertyChanged(nameof(SessionDateUI));
         }
 
         private async Task OnWorkoutTapped(Workout selectedWorkout)
@@ -86,14 +115,31 @@ namespace WorkoutTrackerApp.ViewModels
             newWorkout.Title = "New Workout";
             newWorkout.Description = "Empty Workout, let's get something done!";
             newWorkout.StartTime = DateTime.Now;
+            newWorkout.EndTime = DateTime.Now.AddHours(1);
+            newWorkout.Distance = "";
             newWorkout.SessionId = SessionId;
+
 
             await _repository.AddWorkoutAsync(newWorkout);
 
-            CurrentSession.Workouts.Add(newWorkout);
-
             await SaveCurrentSession();
             await Shell.Current.GoToAsync($"{nameof(CreateEditWorkoutView)}?workoutId={newWorkout.WorkoutId}");
+        }
+
+        private async Task DeleteWorkout(Workout workoutToDelete)
+        {
+            if (workoutToDelete == null) return;
+
+            bool isCofirmed = await Shell.Current.DisplayAlert(
+                "Delete Workout",
+                $"Are you sure you want to delete '{workoutToDelete.Title}'?",
+                "Yes, Delete",
+                "Cancel");
+
+            if (!isCofirmed) return;
+
+            DisplayedWorkouts.Remove(workoutToDelete);
+            await _repository.DeleteWorkoutAsync(workoutToDelete);
         }
 
         public void ChangeTitle(string entryText)
@@ -109,15 +155,15 @@ namespace WorkoutTrackerApp.ViewModels
 
         private async Task SaveCurrentSession()
         {
-            if (Title is null)
-            {
-                CurrentSession.Title = "";
-            } else
-            {
+            if (string.IsNullOrWhiteSpace(Title))
+                CurrentSession.Title = "(Empty Title)";
+            else
                 CurrentSession.Title = Title;
-            }
+
+            CurrentSession.Date = DateOnly.FromDateTime(SessionDateUI);
                 
             await _repository.UpdateSessionAsync(CurrentSession);
         }
+
     }
 }

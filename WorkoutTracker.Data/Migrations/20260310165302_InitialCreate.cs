@@ -33,7 +33,7 @@ namespace WorkoutTracker.Data.Migrations
                     SessionId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -59,7 +59,7 @@ namespace WorkoutTracker.Data.Migrations
                     EndTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Sets = table.Column<int>(type: "INTEGER", nullable: false),
                     Reps = table.Column<int>(type: "INTEGER", nullable: false),
-                    Distance = table.Column<int>(type: "INTEGER", nullable: false),
+                    Distance = table.Column<string>(type: "TEXT", nullable: false),
                     SessionId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

@@ -14,9 +14,20 @@ namespace WorkoutTracker.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public WorkoutDbContext()
+        {
+        }
+
         public WorkoutDbContext(DbContextOptions<WorkoutDbContext> options) : base(options)
         {
-            
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Filename=workout_design_time.db");
+            }
         }
     }
 }
