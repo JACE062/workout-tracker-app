@@ -5,20 +5,14 @@
              xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
              x:Class="WorkoutTrackerApp.Views.SessionsListView"
              x:DataType="viewmodels:SessionsListViewModel"
-             Title="SessionListView">
+             Title="Session List">
     <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Button
-                x:Name="CreateSessionBtn"
-                Text="Create New Session"
-                Command="{Binding CreateSessionCommand}"
-                HorizontalOptions="Fill" />
-        </HorizontalStackLayout>
-        
+
+
         <Grid RowDefinitions="Auto, *">
 
             <Label Grid.Row="0" 
-                Text="Workout History" 
+                Text="Workout Sessions History" 
                 FontSize="24" 
                 FontAttributes="Bold" 
                 Margin="15" />
@@ -40,7 +34,7 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
 
-                            <Frame x:Name="SessionRowFrame" Margin="0,0,0,10" Padding="15" CornerRadius="8" HasShadow="True">
+                            <Frame x:Name="SessionRowFrame" Margin="0,0,0,10" Padding="15" CornerRadius="8" BorderColor="Black">
                                 <FlyoutBase.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="Delete Session"
@@ -55,8 +49,11 @@
                                         CommandParameter="{Binding .}" />
 
                                 </Frame.GestureRecognizers>
-                                
-                                <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center"/>
+                                    <Label Text="–"  FontSize="18" Margin="10,0"/>  
+                                    <Label Text="{Binding Date}" FontSize="14" VerticalOptions="Center" Padding="0, 5"/>
+                                </HorizontalStackLayout>
                             </Frame>
                         </SwipeView>
                     </DataTemplate>
@@ -71,6 +68,13 @@
 
             </CollectionView>
         </Grid>
-
+        <Button
+            x:Name="CreateSessionBtn"
+            Text="Create New Session"
+            Command="{Binding CreateSessionCommand}"
+            BackgroundColor="Grey" 
+            WidthRequest="175"
+            HorizontalOptions="Start"
+            Margin="15"/>
     </VerticalStackLayout>
 </ContentPage>

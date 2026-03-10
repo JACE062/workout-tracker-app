@@ -5,9 +5,10 @@
              xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
              x:Class="WorkoutTrackerApp.Views.CreateEditWorkoutView"
              x:DataType="viewmodels:CreateEditWorkoutViewModel"
-             Title="CreateEditWorkoutView">
+             Title="Edit Workout">
     <VerticalStackLayout>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" RowSpacing="15" ColumnSpacing="10">
+        <Label Text="Workout Details" FontSize="25" Margin="15, 15, 0, 0"/>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *" RowSpacing="15" ColumnSpacing="10" Padding="25">
             <Label Grid.Row="0" Grid.Column="0" Text="Title: " FontAttributes="Bold" FontSize="18" VerticalOptions="Center"/>
             <Entry Grid.Row="0" Grid.Column="1" Text="{Binding CurrentWorkout.Title}" FontSize="18" Keyboard="Text" />
             
@@ -21,25 +22,27 @@
             <TimePicker Grid.Row="3" Grid.Column="1" Time="{Binding EndTimeSpan}" Format="h:mm tt"/>
             
             <Label Grid.Row="4" Grid.Column="0" Text="Sets: " FontAttributes="Bold"  VerticalOptions="Center"/>
-            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding SetsText}" Keyboard="Numeric" />
+            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding SetsText}" Keyboard="Numeric" WidthRequest="75" HorizontalOptions="Start"/>
             
             <Label Grid.Row="5" Grid.Column="0" Text="Reps: " FontAttributes="Bold"  VerticalOptions="Center"/>
-            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding RepsText}"  Keyboard="Numeric" />
+            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding RepsText}"  Keyboard="Numeric" WidthRequest="75" HorizontalOptions="Start"/>
             
             <Label Grid.Row="6" Grid.Column="0" Text="Distance: " FontAttributes="Bold"  VerticalOptions="Center"/>
-            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding CurrentWorkout.Distance}"  Keyboard="Text"/>
+            <Entry Grid.Row="6" Grid.Column="1" Text="{Binding CurrentWorkout.Distance}"  Keyboard="Text" WidthRequest="100" HorizontalOptions="Start"/>
 
         </Grid>
 
-        <HorizontalStackLayout>
             <Button 
                 Text="Save Changes"
                 Command="{Binding SaveReturnCommand}" 
-                WidthRequest="200" />
+                WidthRequest="200" 
+                HorizontalOptions="Start" 
+                Margin="10"/>
             <Button 
                 Text="Discard Changes" 
                 Command="{Binding DiscardReturnCommand}" 
-                WidthRequest="200" />
-        </HorizontalStackLayout>
+                WidthRequest="200" 
+                HorizontalOptions="Start"
+                Margin="10" />
     </VerticalStackLayout>
 </ContentPage>
