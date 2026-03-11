@@ -5,7 +5,7 @@
              xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
              x:Class="WorkoutTrackerApp.Views.SessionView"
              x:DataType="viewmodels:SessionViewModel"
-             Title="Workout Session View">
+             Title="Workout Session Page">
     <ScrollView>
         <VerticalStackLayout >
             <Button 

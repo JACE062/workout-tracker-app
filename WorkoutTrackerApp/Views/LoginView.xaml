@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:WorkoutTrackerApp.ViewModels"
+             x:DataType="viewModels:LoginViewModel"
              x:Class="WorkoutTrackerApp.Views.LoginView"
-             Title="LoginView">
+             Title="Log In Page">
     <VerticalStackLayout>
         <VerticalStackLayout Padding="20">
-            <Entry Placeholder="Username" Text="{Binding Username}" />
-            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
-            <Button Text="Login" Command="{Binding LoginCommand}" />
-            <Label Text="{Binding ResultMessage}" TextColor="Green" />
-            <Button Text="To Register" Command="{Binding ToRegisterCommand}" />
+            <Label Text="Log In" 
+                   FontSize="28"
+                   Margin="10, 10, 0, 25"/>
+
+            <Entry Placeholder="Username" 
+                   Text="{Binding Username}" 
+                   WidthRequest="300"
+                   HorizontalOptions="Start"
+                   Margin="15, 0"/>
+            <Entry Placeholder="Password" 
+                   Text="{Binding Password}" 
+                   IsPassword="True" 
+                   WidthRequest="300"
+                   HorizontalOptions="Start"
+                   Margin="15, 15, 0, 0"/>
+            <Label Text="{Binding ResultMessage}" 
+                    TextColor="Green" 
+                    HorizontalOptions="Start"/>
+            
+            <HorizontalStackLayout>
+                <Button Text="Login" 
+                    Command="{Binding LoginCommand}" 
+                    WidthRequest="75"
+                    HorizontalOptions="Start"
+                    Margin="30, 10, 10, 0"/>
+                <Button Text="Register New Account" 
+                    Command="{Binding ToRegisterCommand}" 
+                    WidthRequest="170"
+                    HorizontalOptions="Start"
+                    Margin="20, 10, 15, 0"/> 
+            </HorizontalStackLayout>
+            
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

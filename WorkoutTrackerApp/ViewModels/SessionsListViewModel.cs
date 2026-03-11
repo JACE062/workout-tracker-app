@@ -23,6 +23,7 @@ namespace WorkoutTrackerApp.ViewModels
         public ICommand SessionTappedCommand { get; }
         public ICommand DeleteSessionCommand { get; }
         public ICommand CreateSessionCommand { get; }
+        public ICommand LogOutCommand { get; }
 
         public SessionsListViewModel(IWorkoutRepository repository)
         {
@@ -31,7 +32,7 @@ namespace WorkoutTrackerApp.ViewModels
             SessionTappedCommand = new Command<Session>(async (selectedSession) => await OnSessionTapped(selectedSession));
             DeleteSessionCommand = new Command<Session>(async (sessionToDelete) => await DeleteSession(sessionToDelete));
             CreateSessionCommand = new Command(async () => await CreateNewSession());
-
+            LogOutCommand = new Command(async () => await LogOut());
         }
 
         public int UserId
@@ -100,6 +101,11 @@ namespace WorkoutTrackerApp.ViewModels
 
             UserSessions.Remove(sessionToDelete);
             await _repository.DeleteSessionAsync(sessionToDelete);
+        }
+
+        private async Task LogOut()
+        {
+            await Shell.Current.GoToAsync($"{nameof(LoginView)}");
         }
     }
 }
