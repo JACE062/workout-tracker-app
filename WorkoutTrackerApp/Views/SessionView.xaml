@@ -15,7 +15,11 @@
                 Margin="10, 10, 0, 0"
                 HorizontalOptions="Start" 
                 BackgroundColor="Grey"/>
-            <HorizontalStackLayout Padding="5">
+            <Label Text="Session Details:"
+                   FontSize="18"
+                   Margin=" 15, 10, 0, 5"/>
+            <VerticalStackLayout Padding="5">
+                <HorizontalStackLayout Padding="5">
                 <Label Text="Session Title:" Margin="15, 10" VerticalOptions="Center"/>
                 <Entry 
                     x:Name="TitleEntry"
@@ -25,17 +29,19 @@
                     Keyboard="Text" 
                     WidthRequest="400"
                     HorizontalOptions="Start" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Padding="5">
-                <Label Text="Session Date:" Margin="15, 10" VerticalOptions="Center"/>
-                <DatePicker Date="{Binding SessionDateUI, Mode=TwoWay}" Margin="0, 10, 10, 10"/>
-            </HorizontalStackLayout>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Padding="5">
+                    <Label Text="Session Date:" Margin="15, 10" VerticalOptions="Center"/>
+                    <DatePicker Date="{Binding SessionDateUI, Mode=TwoWay}" Margin="0, 10, 10, 10"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            
             
                 
             <Grid RowDefinitions="Auto, *" Margin="0,0,0,10">
 
                 <Label Grid.Row="0" 
-                    Text="Workout History" 
+                    Text="Session Workout Log" 
                     FontSize="24" 
                     FontAttributes="Bold" 
                     Margin="15" />

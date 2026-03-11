@@ -10,14 +10,14 @@ using WorkoutTrackerApp.Views;
 
 namespace WorkoutTrackerApp.ViewModels
 {
-    public class TestingUserViewModel : BindableObject
+    public class UserViewModel : BindableObject
     {
         private readonly IWorkoutRepository _repository;
 
         public ICommand RegisterUserCommand { get; }
         public ICommand LoginRedirectCommand => new Command(async () => await LoginRedirect());
 
-        public TestingUserViewModel(IWorkoutRepository repository) 
+        public UserViewModel(IWorkoutRepository repository) 
         {
 
             _repository = repository;

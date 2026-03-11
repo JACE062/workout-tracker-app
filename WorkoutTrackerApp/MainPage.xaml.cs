@@ -1,6 +1,7 @@
 ﻿using WorkoutTracker.Data;
 using WorkoutTracker.Data.Repositories;
 using WorkoutTrackerApp.ViewModels;
+using WorkoutTrackerApp.Views;
 
 namespace WorkoutTrackerApp
 {
@@ -15,7 +16,7 @@ namespace WorkoutTrackerApp
 
         private async void OnUserButtonClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//UserEntry");
+            await Shell.Current.GoToAsync($"{nameof(UserView)}");
         }
 
     }

@@ -34,8 +34,8 @@ namespace WorkoutTrackerApp
             builder.Services.AddTransient<SessionView>();
             builder.Services.AddTransient<CreateEditWorkoutViewModel>();
             builder.Services.AddTransient<CreateEditWorkoutView>();
-            builder.Services.AddTransient<TestingUserViewModel>();
-            builder.Services.AddTransient<TestingUserView>();
+            builder.Services.AddTransient<UserViewModel>();
+            builder.Services.AddTransient<UserView>();
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<RegisterView>();
             builder.Services.AddTransient<LoginViewModel>();

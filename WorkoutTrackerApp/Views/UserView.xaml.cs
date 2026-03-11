@@ -4,11 +4,11 @@ using WorkoutTrackerApp.ViewModels;
 
 namespace WorkoutTrackerApp.Views;
 
-public partial class TestingUserView : ContentPage
+public partial class UserView : ContentPage
 {
-    public readonly TestingUserViewModel _viewModel;
+    public readonly UserViewModel _viewModel;
 
-    public TestingUserView(TestingUserViewModel viewModel)
+    public UserView(UserViewModel viewModel)
 	{
 		InitializeComponent();
 

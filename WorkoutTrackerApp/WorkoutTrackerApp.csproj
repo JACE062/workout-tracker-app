@@ -85,13 +85,19 @@
 	  <MauiXaml Update="Views\SessionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\TestingUserView.xaml">
+	  <MauiXaml Update="Views\UserView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\WorkoutTracker.Data\WorkoutTracker.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\UserView.xaml.cs">
+	    <DependentUpon>UserView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<!-- <ItemGroup> 

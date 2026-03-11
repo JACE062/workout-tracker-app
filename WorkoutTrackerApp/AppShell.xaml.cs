@@ -8,6 +8,7 @@ namespace WorkoutTrackerApp
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(UserView), typeof(UserView));
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
             Routing.RegisterRoute(nameof(SessionsListView), typeof(SessionsListView));
