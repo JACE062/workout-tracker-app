@@ -57,6 +57,13 @@ namespace WorkoutTrackerApp.ViewModels
                 return;
             }
 
+            User usernameTaken = await _repository.GetUserByUsernameAsync(Username.Trim());
+            if (usernameTaken != null)
+            {
+                ResultMessage = "Username is already taken. Please choose another.";
+                return;
+            }
+
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
             var user = new User(Name, Username, hashedPassword);
             await _repository.AddUserAsync(user);
