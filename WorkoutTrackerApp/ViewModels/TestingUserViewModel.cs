@@ -14,25 +14,25 @@ namespace WorkoutTrackerApp.ViewModels
     {
         private readonly IWorkoutRepository _repository;
 
-        public ICommand CreateUserCommand { get; }
+        public ICommand RegisterUserCommand { get; }
+        public ICommand LoginRedirectCommand => new Command(async () => await LoginRedirect());
 
         public TestingUserViewModel(IWorkoutRepository repository) 
         {
 
             _repository = repository;
 
-            CreateUserCommand = new Command(async () => await CreateNewUser());
+            RegisterUserCommand = new Command(async () => await GoToRegisterViewAsync());
         }
-        public async Task CreateNewUser()
+
+        private async Task GoToRegisterViewAsync()
         {
-            //User newUser = new User();
-            //newUser.Name = "Jonathan";
-            //newUser.Username = "jace062";
-            //newUser.Password = "$uperStrongP@55w0rd!";
+            await Shell.Current.GoToAsync(nameof(RegisterView));
+        }
 
-            //await _repository.AddUserAsync(newUser);
-
-            //await Shell.Current.GoToAsync($"{nameof(SessionsListView)}?userId={newUser.UserId}");
+        public async Task LoginRedirect()
+        {
+            await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         public async Task LoadUser(string userId)

@@ -11,18 +11,14 @@
             Text="This is the testing User Creation View"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button
+            Text="Register User"
+            Command="{Binding RegisterUserCommand}"
+            HorizontalOptions="Fill"/>
+
         <Button 
-            Text="Create User"
-            Command="{Binding CreateUserCommand}"
-            HorizontalOptions="Fill" />
-        <Entry 
-            x:Name="UserIdEntry"
-            Placeholder="1"  
-            IsPassword="False"
-            Keyboard="Numeric" />
-        <Button 
-            Text="Load User"
-            Clicked="OnLoadUserClicked"
+            Text="Login"
+            Command="{Binding LoginRedirectCommand}"
             HorizontalOptions="Fill" />
         
     </VerticalStackLayout>

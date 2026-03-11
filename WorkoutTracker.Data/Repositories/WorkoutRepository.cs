@@ -69,6 +69,11 @@ namespace WorkoutTracker.Data.Repositories
             return await _dbContext.Users.FindAsync(id);
         }
 
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+        }
+
         public async Task<Workout?> GetWorkoutByIdAsync(int id)
         {
             return await _dbContext.Workouts.FindAsync(id);

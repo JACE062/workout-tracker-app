@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
@@ -60,6 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.13">
 		  <PrivateAssets>all</PrivateAssets>
@@ -74,6 +74,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateEditWorkoutView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RegisterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SessionsListView.xaml">
@@ -91,13 +94,13 @@
 	  <ProjectReference Include="..\WorkoutTracker.Data\WorkoutTracker.Data.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!-- <ItemGroup> 
 	  <Compile Update="Views\CreateEditWorkoutView.xaml.cs">
 	    <DependentUpon>CreateEditWorkoutView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\SessionsListView.xaml.cs">
 	    <DependentUpon>SessionsListView.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
+	  </Compile> 
+	</ItemGroup> -->
 
 </Project>

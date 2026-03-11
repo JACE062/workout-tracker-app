@@ -16,9 +16,4 @@ public partial class TestingUserView : ContentPage
 
         BindingContext = _viewModel;
     }
-
-    public async void OnLoadUserClicked(object sender, EventArgs e)
-    {
-        await _viewModel.LoadUser(UserIdEntry.Text);
-    }
 }

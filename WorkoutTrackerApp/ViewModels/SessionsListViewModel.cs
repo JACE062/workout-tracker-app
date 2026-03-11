@@ -40,18 +40,26 @@ namespace WorkoutTrackerApp.ViewModels
             set
             {
                 _userId = value;
-                LoadSessionsAsync(_userId);
+                _ = LoadSessionsAsync(_userId);
             }
         }
 
-        public async void LoadSessionsAsync(int userId)
+        public async Task LoadSessionsAsync(int userId)
         {
-            var dbUserSessions = await _repository.GetAllSessionsForUserAsync(userId);
-
-            UserSessions.Clear();
-            foreach (var session in dbUserSessions)
+            try
             {
-                UserSessions.Add(session);
+                var dbUserSessions = await _repository.GetAllSessionsForUserAsync(userId);
+
+                UserSessions.Clear();
+                foreach (var session in dbUserSessions)
+                {
+                    UserSessions.Add(session);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to load sessions for user {userId}: {ex}");
+                UserSessions.Clear();
             }
         }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutTrackerApp.Views.RegisterView"
+             x:DataType="viewModels:RegisterViewModel"
+             xmlns:viewModels="clr-namespace:WorkoutTrackerApp.ViewModels">
+    <VerticalStackLayout>
+        <VerticalStackLayout Padding="20">
+            <Entry Placeholder="Name" Text="{Binding Name}" />
+            <Entry Placeholder="Username" Text="{Binding Username}" />
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
+            <Button Text="Register" Command="{Binding RegisterCommand}" />
+            <Label Text="{Binding ResultMessage}" TextColor="Green" />
+            <Button Text="To Login" Command="{Binding ToLoginCommand}" />
+        </VerticalStackLayout>
+       
+    </VerticalStackLayout>
+</ContentPage>
