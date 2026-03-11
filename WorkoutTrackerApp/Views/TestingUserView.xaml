@@ -5,21 +5,30 @@
              xmlns:models="clr-namespace:WorkoutTracker.Data;assembly=WorkoutTracker.Data"
              x:Class="WorkoutTrackerApp.Views.TestingUserView"
              x:DataType="viewmodels:TestingUserViewModel"
-             Title="TestingUserView">
+             Title="User Login">
     <VerticalStackLayout>
         <Label 
-            Text="This is the testing User Creation View"
+            Text="Please Log In or Register to continue to the Workout Tracker App"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
-            Text="Register User"
-            Command="{Binding RegisterUserCommand}"
-            HorizontalOptions="Fill"/>
-
+            HorizontalOptions="Center" 
+            HorizontalTextAlignment="Center"
+            FontSize="28"
+            WidthRequest="480"
+            Margin="0, 50, 0, 30"/> 
+        
         <Button 
             Text="Login"
             Command="{Binding LoginRedirectCommand}"
-            HorizontalOptions="Fill" />
+            WidthRequest="300"
+            HorizontalOptions="Center" 
+            Margin="0, 35"/>
+        <Button
+            Text="Register User"
+            Command="{Binding RegisterUserCommand}"
+            WidthRequest="300"
+            HorizontalOptions="Center"/>
+
+        
         
     </VerticalStackLayout>
 </ContentPage>

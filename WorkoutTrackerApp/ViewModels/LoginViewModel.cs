@@ -39,6 +39,8 @@ namespace WorkoutTrackerApp.ViewModels
         }
 
         public ICommand LoginCommand { get; }
+        public ICommand ToRegisterCommand => new Command(async () => await GoToRegisterViewAsync());
+
 
         public LoginViewModel(IWorkoutRepository repository)
         {
@@ -108,6 +110,11 @@ namespace WorkoutTrackerApp.ViewModels
             }
 
             return false;
+        }
+
+        private async Task GoToRegisterViewAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(RegisterView));
         }
     }
 }

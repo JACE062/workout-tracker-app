@@ -18,7 +18,7 @@
             Title="About"
             ContentTemplate="{DataTemplate local:AboutPage}" />
         <ShellContent 
-            Title="User"
+            Title="Login"
             ContentTemplate="{DataTemplate views:TestingUserView}"
             />
     </TabBar>
