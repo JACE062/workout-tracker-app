@@ -31,12 +31,12 @@
                     Command="{Binding LoginCommand}" 
                     WidthRequest="75"
                     HorizontalOptions="Start"
-                    Margin="30, 10, 10, 0"/>
-                <Button Text="Register New Account" 
+                    Margin="30, 10, 15, 0"/>
+                <Button Text="Register New User" 
                     Command="{Binding ToRegisterCommand}" 
-                    WidthRequest="170"
+                    WidthRequest="150"
                     HorizontalOptions="Start"
-                    Margin="20, 10, 15, 0"/> 
+                    Margin="25, 10, 15, 0"/> 
             </HorizontalStackLayout>
             
         </VerticalStackLayout>
