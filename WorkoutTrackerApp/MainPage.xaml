@@ -9,11 +9,29 @@
             Spacing="25">
 
             <Label
-                Text="Hello, everybody! Welcome to our WorkoutTracker App"
+                Text="Welcome to the Workout Tracker App!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
+            <Label
+                Text="This application helps you track your workouts, set goals, and monitor your progress over time. Whether you're a beginner or an experienced athlete, the Workout Tracker App is designed to support you on your fitness journey."
+                WidthRequest="600"
+                SemanticProperties.HeadingLevel="Level2" />
 
+            <Label
+                Text="Let's get started!"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
             
+            <Button
+                Text="Login"
+                FontSize="18"
+                SemanticProperties.Hint="Navigate to the User Login and Registration page."
+                WidthRequest="100"
+                HorizontalOptions="Center" 
+                Margin="0, 35"
+                Clicked="OnUserButtonClicked" />
+            
+
         </VerticalStackLayout>
     </ScrollView>
 

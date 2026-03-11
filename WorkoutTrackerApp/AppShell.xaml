@@ -13,13 +13,10 @@
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
-        
-        <ShellContent
-            Title="About"
-            ContentTemplate="{DataTemplate local:AboutPage}" />
         <ShellContent 
             Title="Login"
             ContentTemplate="{DataTemplate views:TestingUserView}"
+            Route="UserEntry"
             />
     </TabBar>
    
